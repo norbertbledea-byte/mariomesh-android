@@ -26,6 +26,12 @@ jobs:
           distribution: temurin
           java-version: "25"
 
+      - name: Set up JetBrains Runtime 25 (desktopApp Compose toolchain)
+        uses: actions/setup-java@v4
+        with:
+          distribution: jetbrains
+          java-version: "25"
+
       - name: Set up Android SDK
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
