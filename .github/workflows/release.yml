@@ -77,6 +77,22 @@ jobs:
           keyPassword=$KEY_PASSWORD
           EOF
 
+      - name: Cap Gradle/Kotlin heap sizes for the CI runner
+        # The committed gradle.properties is tuned for local dev machines (8g/6g/5g heaps,
+        # parallel execution) and OOM-kills the standard GitHub-hosted runner (16GB RAM)
+        # partway through a cold multi-module build - surfaces as a bare "operation was
+        # canceled" with no Gradle error. ~/.gradle/gradle.properties overrides the
+        # project's own file, so this doesn't touch the committed settings.
+        run: |
+          mkdir -p "$HOME/.gradle"
+          cat > "$HOME/.gradle/gradle.properties" <<'EOF'
+          org.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8
+          org.gradle.parallel=false
+          org.gradle.workers.max=2
+          kotlin.daemon.jvmargs=-Xmx4g
+          kotlin.native.jvmArgs=-Xmx2g
+          EOF
+
       - name: Build fdroid release APK
         env:
           VERSION_NAME: ${{ steps.version.outputs.name }}
