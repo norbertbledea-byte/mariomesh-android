@@ -26,10 +26,11 @@ jobs:
         # all, so any heap-sizing guess can still get killed on a spike; a swapfile turns
         # a hard OOM-kill into graceful (slower) paging instead.
         run: |
-          sudo fallocate -l 8G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
+          free -h
+          sudo fallocate -l 8G /mariomesh-swapfile
+          sudo chmod 600 /mariomesh-swapfile
+          sudo mkswap /mariomesh-swapfile
+          sudo swapon /mariomesh-swapfile
           free -h
 
       - name: Set up JDK 25
