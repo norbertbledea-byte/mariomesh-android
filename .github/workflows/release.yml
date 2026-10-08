@@ -20,6 +20,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Add swap space
+        # The last run died mid-build with "the daemon has disappeared" - the Gradle
+        # daemon got OOM-killed by the kernel. Standard hosted runners have no swap at
+        # all, so any heap-sizing guess can still get killed on a spike; a swapfile turns
+        # a hard OOM-kill into graceful (slower) paging instead.
+        run: |
+          sudo fallocate -l 8G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+
       - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
