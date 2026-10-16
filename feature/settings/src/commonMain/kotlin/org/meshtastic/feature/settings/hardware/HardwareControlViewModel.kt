@@ -83,9 +83,12 @@ class HardwareControlViewModel(private val commandSender: CommandSender, nodeRep
     fun setPin(pin: Int, on: Boolean) {
         val destNum = uiState.value.selectedNodeNum ?: return
         val mask = 1L shl pin
+        // Flip the switch immediately: sendGpioWrite is a suspend call through the outbound queue, and Switch snaps
+        // back to its StateFlow-backed position if nothing updates pinStates before the next recomposition - waiting
+        // for the send to finish first made every toggle look like it "stayed off" even when the send succeeded.
+        pinStates.value = pinStates.value + (pin to on)
         safeLaunch(tag = "HardwareControl.setPin") {
             commandSender.sendGpioWrite(destNum = destNum, mask = mask, value = if (on) mask else 0L)
-            pinStates.value = pinStates.value + (pin to on)
         }
     }
 
