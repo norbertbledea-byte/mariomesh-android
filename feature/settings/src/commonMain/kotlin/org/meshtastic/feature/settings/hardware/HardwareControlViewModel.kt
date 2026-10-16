@@ -87,8 +87,10 @@ class HardwareControlViewModel(private val commandSender: CommandSender, nodeRep
         // back to its StateFlow-backed position if nothing updates pinStates before the next recomposition - waiting
         // for the send to finish first made every toggle look like it "stayed off" even when the send succeeded.
         pinStates.value = pinStates.value + (pin to on)
+        // The relay board is active-low (coil energizes when the GPIO is driven LOW), so "on" here means writing 0,
+        // not the mask bit - sending the mask for "on" left the relay de-energized and only "off" ever activated it.
         safeLaunch(tag = "HardwareControl.setPin") {
-            commandSender.sendGpioWrite(destNum = destNum, mask = mask, value = if (on) mask else 0L)
+            commandSender.sendGpioWrite(destNum = destNum, mask = mask, value = if (on) 0L else mask)
         }
     }
 
