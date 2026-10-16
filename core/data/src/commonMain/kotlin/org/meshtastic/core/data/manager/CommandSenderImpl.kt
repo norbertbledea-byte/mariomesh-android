@@ -52,6 +52,7 @@ import org.meshtastic.proto.Constants
 import org.meshtastic.proto.Data
 import org.meshtastic.proto.DeviceMetrics
 import org.meshtastic.proto.EnvironmentMetrics
+import org.meshtastic.proto.HardwareMessage
 import org.meshtastic.proto.HostMetrics
 import org.meshtastic.proto.LocalConfig
 import org.meshtastic.proto.LocalStats
@@ -361,6 +362,34 @@ class CommandSenderImpl(
 
     override suspend fun requestTelemetry(requestId: Int, destNum: Int, typeValue: Int) {
         enqueueTelemetryOrThrow(requestId, destNum, typeValue)
+    }
+
+    override suspend fun sendGpioWrite(destNum: Int, mask: Long, value: Long) {
+        enqueueOrThrow(
+            buildMeshPacket(
+                to = destNum,
+                wantAck = true,
+                id = generatePacketId(),
+                channel = getChannelIndex(destNum),
+                decoded =
+                Data.Builder()
+                    .also { wb ->
+                        wb.portnum = PortNum.REMOTE_HARDWARE_APP
+                        wb.payload =
+                            HardwareMessage.Builder()
+                                .also { hb ->
+                                    hb.type = HardwareMessage.Type.WRITE_GPIOS
+                                    hb.gpio_mask = mask
+                                    hb.gpio_value = value
+                                }
+                                .build()
+                                .encode()
+                                .toByteString()
+                    }
+                    .build(),
+            ),
+            "GPIO write",
+        )
     }
 
     override suspend fun requestTelemetryForConnection(

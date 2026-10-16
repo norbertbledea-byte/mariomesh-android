@@ -19,6 +19,7 @@ package org.meshtastic.desktop.ui
 import org.meshtastic.core.navigation.ConnectionsRoute
 import org.meshtastic.core.navigation.ContactsRoute
 import org.meshtastic.core.navigation.FirmwareRoute
+import org.meshtastic.core.navigation.HardwareControlRoute
 import org.meshtastic.core.navigation.MapRoute
 import org.meshtastic.core.navigation.NodesRoute
 import org.meshtastic.core.navigation.Route
@@ -46,6 +47,7 @@ class DesktopTopLevelDestinationParityTest {
                 MapRoute.Map::class,
                 SettingsRoute.Settings::class,
                 ConnectionsRoute.Connections::class,
+                HardwareControlRoute.HardwareControl::class,
             )
 
         assertEquals(

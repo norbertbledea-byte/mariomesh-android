@@ -158,6 +158,12 @@ class FakeUiPrefs : UiPrefs {
         networkAutoScan.value = enabled
     }
 
+    override val hardwareControlLabels = MutableStateFlow<Map<Int, String>>(emptyMap())
+
+    override fun setHardwareControlLabel(pin: Int, label: String) {
+        hardwareControlLabels.value = hardwareControlLabels.value + (pin to label)
+    }
+
     override val selectedConnectionTransport = MutableStateFlow<DeviceType?>(null)
 
     override fun setSelectedConnectionTransport(type: DeviceType) {

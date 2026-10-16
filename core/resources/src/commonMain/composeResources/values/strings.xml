@@ -827,7 +827,15 @@
     <string name="gpio_pin">GPIO pin</string>
     <string name="grant_permission">Grant permission</string>
     <string name="ham_long_name_summary">Optional. Appended to your call sign, e.g. KD2ABC//Attic Heltec</string>
+    <!-- HARDWARE -->
     <string name="hardware">Hardware</string>
+    <string name="hardware_control">Hardware Control</string>
+    <string name="hardware_control_no_target">Pick a node to control first.</string>
+    <string name="hardware_control_pin_label">Pin %1$d</string>
+    <string name="hardware_control_relay_default">Relay %1$d</string>
+    <string name="hardware_control_rename">Rename</string>
+    <string name="hardware_control_rename_hint">Name</string>
+    <string name="hardware_control_target_node">Target node</string>
     <string name="hardware_model">Hardware model</string>
     <string name="heading">Heading</string>
     <string name="help_and_documentation">Help &amp; Documentation</string>

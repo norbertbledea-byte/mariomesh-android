@@ -151,6 +151,14 @@ interface UiPrefs {
 
     fun setNetworkAutoScan(enabled: Boolean)
 
+    /**
+     * User-chosen label per GPIO pin on the Hardware Control screen, keyed by pin number. A pin missing here shows
+     * its default "Relay N" label instead.
+     */
+    val hardwareControlLabels: StateFlow<Map<Int, String>>
+
+    fun setHardwareControlLabel(pin: Int, label: String)
+
     /** User-selected Connections transport pane, or null when the screen should derive a default. */
     val selectedConnectionTransport: StateFlow<DeviceType?>
 

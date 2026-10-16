@@ -56,6 +56,7 @@ import org.meshtastic.feature.map.navigation.mapGraph
 import org.meshtastic.feature.messaging.navigation.contactsGraph
 import org.meshtastic.feature.node.navigation.nodesGraph
 import org.meshtastic.feature.settings.lockdown.LockdownDialog
+import org.meshtastic.feature.settings.navigation.hardwareControlGraph
 import org.meshtastic.feature.settings.navigation.rememberSettingsRadioConfigViewModelProvider
 import org.meshtastic.feature.settings.navigation.settingsGraph
 import org.meshtastic.feature.settings.radio.channel.channelsGraph
@@ -112,6 +113,7 @@ fun MainScreen() {
                     connectionsGraph(backStack)
                     discoveryGraph(backStack)
                     settingsGraph(backStack, settingsRadioConfigViewModelProvider)
+                    hardwareControlGraph()
                     docsEntries(backStack)
                     firmwareGraph(backStack)
                     wifiProvisionGraph(backStack)

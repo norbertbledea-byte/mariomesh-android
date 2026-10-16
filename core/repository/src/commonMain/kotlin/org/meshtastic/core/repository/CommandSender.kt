@@ -120,6 +120,14 @@ interface CommandSender {
     /** Requests a traceroute to a specific node, or throws if the outbound queue rejects it. */
     suspend fun requestTraceroute(requestId: Int, destNum: Int)
 
+    /**
+     * Writes GPIO pins on a remote node via the RemoteHardware module (REMOTE_HARDWARE_APP), or throws if the
+     * outbound queue rejects it. [mask] selects which pins are addressed (bit N = GPIO N); [value] carries the new
+     * level for each addressed pin. The target node must have `remote_hardware.enabled` set and, unless
+     * `allow_undefined_pin_access` is set, [mask]'s pins must be in its `available_pins` allowlist.
+     */
+    suspend fun sendGpioWrite(destNum: Int, mask: Long, value: Long)
+
     /** Requests telemetry from a specific node, or throws if the outbound queue rejects it. */
     suspend fun requestTelemetry(requestId: Int, destNum: Int, typeValue: Int)
 

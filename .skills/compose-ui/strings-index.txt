@@ -791,7 +791,15 @@ gpio
 gpio_pin
 grant_permission
 ham_long_name_summary
+### HARDWARE ###
 hardware
+hardware_control
+hardware_control_no_target
+hardware_control_pin_label
+hardware_control_relay_default
+hardware_control_rename
+hardware_control_rename_hint
+hardware_control_target_node
 hardware_model
 heading
 help_and_documentation

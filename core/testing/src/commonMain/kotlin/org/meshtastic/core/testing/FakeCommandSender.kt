@@ -186,6 +186,10 @@ class FakeCommandSender :
         failCommandIfConfigured()
     }
 
+    override suspend fun sendGpioWrite(destNum: Int, mask: Long, value: Long) {
+        failCommandIfConfigured()
+    }
+
     override suspend fun requestTelemetry(requestId: Int, destNum: Int, typeValue: Int) {
         failCommandIfConfigured()
         mutableTelemetryRequests += TelemetryRequest(requestId, destNum, typeValue)

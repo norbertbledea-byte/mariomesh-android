@@ -31,6 +31,7 @@ import org.meshtastic.feature.firmware.navigation.firmwareGraph
 import org.meshtastic.feature.map.navigation.mapGraph
 import org.meshtastic.feature.messaging.navigation.contactsGraph
 import org.meshtastic.feature.node.navigation.nodesGraph
+import org.meshtastic.feature.settings.navigation.hardwareControlGraph
 import org.meshtastic.feature.settings.navigation.settingsGraph
 import org.meshtastic.feature.settings.radio.RadioConfigViewModel
 import org.meshtastic.feature.settings.radio.channel.channelsGraph
@@ -62,6 +63,7 @@ fun EntryProviderScope<NavKey>.desktopNavGraph(
     mapGraph(backStack)
     firmwareGraph(backStack)
     settingsGraph(backStack, settingsRadioConfigViewModel)
+    hardwareControlGraph()
     docsEntries(backStack)
     channelsGraph(backStack)
     connectionsGraph(backStack)

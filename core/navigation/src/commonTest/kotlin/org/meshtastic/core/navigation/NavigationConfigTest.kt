@@ -58,6 +58,8 @@ class NavigationConfigTest {
             // NodeDetailRoute
             NodeDetailRoute.DeviceMetrics(destNum = 100),
             NodeDetailRoute.PositionLog(destNum = 100),
+            // HardwareControlRoute
+            HardwareControlRoute.HardwareControl,
             NodeDetailRoute.EnvironmentMetrics(destNum = 100),
             NodeDetailRoute.SignalMetrics(destNum = 100),
             NodeDetailRoute.PowerMetrics(destNum = 100),

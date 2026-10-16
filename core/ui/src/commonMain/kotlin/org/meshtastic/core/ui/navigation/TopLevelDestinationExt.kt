@@ -23,6 +23,7 @@ import org.meshtastic.core.resources.ic_forum
 import org.meshtastic.core.resources.ic_map
 import org.meshtastic.core.resources.ic_nodes
 import org.meshtastic.core.resources.ic_settings
+import org.meshtastic.core.resources.ic_settings_remote
 import org.meshtastic.core.resources.ic_wifi
 
 /** Maps a shared [TopLevelDestination] to its corresponding icon [DrawableResource]. */
@@ -34,4 +35,5 @@ val TopLevelDestination.icon: DrawableResource
             TopLevelDestination.Map -> Res.drawable.ic_map
             TopLevelDestination.Settings -> Res.drawable.ic_settings
             TopLevelDestination.Connect -> Res.drawable.ic_wifi
+            TopLevelDestination.HardwareControl -> Res.drawable.ic_settings_remote
         }

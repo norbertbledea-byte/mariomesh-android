@@ -21,6 +21,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.meshtastic.core.resources.Res
 import org.meshtastic.core.resources.bottom_nav_settings
 import org.meshtastic.core.resources.connect
+import org.meshtastic.core.resources.hardware_control
 import org.meshtastic.core.resources.map
 import org.meshtastic.core.resources.messages
 import org.meshtastic.core.resources.nodes
@@ -37,6 +38,7 @@ enum class TopLevelDestination(val label: StringResource, val route: Route) {
     Map(Res.string.map, MapRoute.Map()),
     Settings(Res.string.bottom_nav_settings, SettingsRoute.Settings()),
     Connect(Res.string.connect, ConnectionsRoute.Connections()),
+    HardwareControl(Res.string.hardware_control, HardwareControlRoute.HardwareControl),
     ;
 
     companion object {

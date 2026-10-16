@@ -65,6 +65,11 @@ sealed interface NodesRoute : Route {
 }
 
 @Serializable
+sealed interface HardwareControlRoute : Route {
+    @Serializable data object HardwareControl : HardwareControlRoute, Graph
+}
+
+@Serializable
 sealed interface NodeDetailRoute : Route {
     @Serializable data class DeviceMetrics(val destNum: Int) : NodeDetailRoute
 

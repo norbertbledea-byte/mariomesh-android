@@ -146,6 +146,30 @@ class UiPrefsImpl(private val dataStore: UiDataStore, dispatchers: CoroutineDisp
         scope.launch { dataStore.edit { it[KEY_NETWORK_AUTO_SCAN] = enabled } }
     }
 
+    override val hardwareControlLabels: StateFlow<Map<Int, String>> =
+        dataStore.data.map { it.toHardwareControlLabels() }.stateIn(scope, SharingStarted.Eagerly, emptyMap())
+
+    override fun setHardwareControlLabel(pin: Int, label: String) {
+        scope.launch {
+            dataStore.edit { prefs ->
+                val labels = prefs.toHardwareControlLabels().toMutableMap()
+                labels[pin] = label
+                prefs[KEY_HARDWARE_CONTROL_LABELS] =
+                    labels.entries.joinToString("|") { (p, l) -> "$p:${l.replace("|", "").replace(":", "")}" }
+            }
+        }
+    }
+
+    private fun Preferences.toHardwareControlLabels(): Map<Int, String> =
+        this[KEY_HARDWARE_CONTROL_LABELS]
+            ?.split('|')
+            ?.filter(String::isNotBlank)
+            ?.mapNotNull { entry ->
+                val pin = entry.substringBefore(':').toIntOrNull() ?: return@mapNotNull null
+                pin to entry.substringAfter(':', missingDelimiterValue = "")
+            }
+            ?.toMap() ?: emptyMap()
+
     override val selectedConnectionTransport: StateFlow<DeviceType?> =
         dataStore.data
             .map { preferences ->
@@ -346,6 +370,7 @@ class UiPrefsImpl(private val dataStore: UiDataStore, dispatchers: CoroutineDisp
         val KEY_NETWORK_AUTO_SCAN = booleanPreferencesKey("network-auto-scan")
         val KEY_SELECTED_CONNECTION_TRANSPORT = stringPreferencesKey("selected-connection-transport")
         val KEY_FIRMWARE_UPDATE_NOTIFICATION_KEYS = stringPreferencesKey("firmware-update-notification-keys")
+        val KEY_HARDWARE_CONTROL_LABELS = stringPreferencesKey("hardware-control-labels")
         val KEY_SHOW_BLE_TRANSPORT = booleanPreferencesKey("show-ble-transport")
         val KEY_SHOW_NETWORK_TRANSPORT = booleanPreferencesKey("show-network-transport")
         val KEY_SHOW_USB_TRANSPORT = booleanPreferencesKey("show-usb-transport")
