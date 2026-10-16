@@ -370,7 +370,10 @@ class CommandSenderImpl(
                 to = destNum,
                 wantAck = true,
                 id = generatePacketId(),
-                channel = getChannelIndex(destNum),
+                // RemoteHardwareModule is bound to the channel literally named "gpio" (Channels::gpioChannel in
+                // firmware) regardless of which channel toNum last talked on - using getChannelIndex(destNum) here
+                // sends on the wrong channel and the module silently drops the packet.
+                channel = channelSet.value.settings.indexOfFirst { it.name.equals("gpio", ignoreCase = true) }.coerceAtLeast(0),
                 decoded =
                 Data.Builder()
                     .also { wb ->
