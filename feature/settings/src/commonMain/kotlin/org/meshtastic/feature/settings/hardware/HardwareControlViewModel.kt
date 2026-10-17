@@ -100,6 +100,6 @@ class HardwareControlViewModel(private val commandSender: CommandSender, nodeRep
 
     companion object {
         /** GPIO pins wired for relay control, in display order. Channel 2 (pin 48) has a known-dead relay board. */
-        val RELAY_PINS = listOf(26, 48, 47, 33, 2, 4, 5, 6)
+        val RELAY_PINS = listOf(26, 48, 47, 33, 2, 4, 5, 34)
     }
 }
